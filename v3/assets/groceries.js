@@ -1,6 +1,8 @@
-// var mealList = [{name: "x", groceryItem: ["1", "2"]}, {name: "y", groceryItem: ["3", "4"]}]
-var mealList = [];
+// Example of what mealList should look like
+    // var mealList = [{name: "x", groceryItem: ["1", "2"]}, {name: "y", groceryItem: ["3", "4"]}]
 
+// Set Empty variables
+var mealList = [];
 var groceryList = [];
 
 // Input Meals
@@ -39,7 +41,7 @@ $(document).on('keypress', '#mealItemInput', (function(event){
 
 
 // ====================================
-// ====================================
+// Code to be used later on
 // ====================================
 
 // // Check off specific todos by clicking
