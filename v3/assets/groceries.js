@@ -8,6 +8,7 @@ var groceryList = [];
 // Input Meals
 $("#mealsInput").keypress(function(event){
     if(event.which === 13){
+
         // Set meal name to var
         var mealName = $(this).val();
         // Clear input
@@ -17,27 +18,45 @@ $("#mealsInput").keypress(function(event){
         // console.log(mealList);
         mealListUl = "";
         for (i = 0 ; i < mealList.length ; i++){
-            mealListUl += "<li id=" + i + ">" + mealList[i].name + "<br><input class='input' type='text' placeholder='Meal Item' id='mealItemInput'><ul></ul></li>";
+            mealListUl += "<li id=" + i + ">" + mealList[i].name + "<br><input class='input mealItemInput' type='text' placeholder='Meal Item'><ul></ul></li>";
             $("ul.meals").html(mealListUl)
         }
+        
     };
 });
 
 // Input Meal items
-$(document).on('keypress', '#mealItemInput', (function(event){
+$(document).on('keypress', '.mealItemInput', (function(event){
     if(event.which === 13){
-        // console.log(mealList);
+
+        // console.log($(this).val());
         var mealItem = $(this).val();
         var mealItemString = "<li>" + $(this).val() + "</li>";
         $(this).val("");
         mealList[$(this).parent().attr("id")].item.push(mealItem);
-        // console.log(mealItemString);
+        groceryList.push(mealItem);
+        // console.log(groceryList);
         $(this).parent("li").find("ul").append(mealItemString);
-        mealItemString = "";
-        mealItem = "";
-    };
+        console.log($(this).parent("li"));
+        $(".groceries").append(mealItemString);
 
+    };
 }));
+
+// Input Grocery items
+$(document).on('keypress', '#groceryItemInput', (function(event){
+    if(event.which === 13){
+        var groceryItem = $(this).val();
+        var groceryItemString = "<li>" + $(this).val() + "</li>";
+        $(this).val("");
+        groceryList.push(groceryItem);
+        console.log(groceryList);
+        $(".groceries").append(groceryItemString);
+        groceryItemString = "";
+        groceryItem = "";
+    };
+}));
+
 
 
 // ====================================
