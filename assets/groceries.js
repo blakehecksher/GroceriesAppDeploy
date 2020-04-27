@@ -1,103 +1,75 @@
-// Example of what mealList should look like
-    // var mealList = [{name: "x", groceryItem: ["1", "2"]}, {name: "y", groceryItem: ["3", "4"]}]
+function clear(i){
+    $(i).val("");
+};
 
-// Set Empty variables
-var mealList = [];
-var groceryList = [];
+function grabInput(i){
+    input = $(i).val();
+    return input
+}
 
-// Input Meals
-$("#mealsInput").keypress(function(event){
+// function checkDuplicate(x){
+//     if($("ul.groceryList").text().length > 0){
+//         alert("if statement triggered!");
+//         console.log(x);
+//     } else {
+        
+//     };
+// };
+
+$(document).on("keypress",'input#meal', function(){
     if(event.which === 13){
 
-        // Set meal name to var
-        var mealName = $(this).val();
-        // Clear input
-        $(this).val("");
-        // Push value of input to meal list array
-        mealList.push({name: mealName, item:[]});
-        // console.log(mealList);
-        mealListUl = "";
-        for (i = 0 ; i < mealList.length ; i++){
-            mealListUl += "<li id=" + i + ">" + mealList[i].name + "<br><input class='input mealItemInput' type='text' placeholder='Meal Item'><ul></ul></li>";
-            $("ul.meals").html(mealListUl)
-        }
-        
+        var input = '<li>'
+        + grabInput(this)
+        + '<i class="far fa-window-close delete meal"></i> <br> <input type="text" class="mealItemInput" placeholder="meal item"> <ul class="mealItems"></ul></li>';
+        clear(this);
+        $("ul.mealList").append(input);
+
     };
 });
 
-// Input Meal items
-$(document).on('keypress', '.mealItemInput', (function(event){
+$(document).on('keypress','input.mealItemInput',function(){
     if(event.which === 13){
 
-        // console.log($(this).val());
-        var mealItem = $(this).val();
-        var mealItemString = "<li>" + $(this).val() + "</li>";
-        $(this).val("");
-        mealList[$(this).parent().attr("id")].item.push(mealItem);
-        groceryList.push(mealItem);
-        // console.log(groceryList);
-        $(this).parent("li").find("ul").append(mealItemString);
-        console.log($(this).parent("li"));
-        $(".groceries").append(mealItemString);
-
+        var input = '<li>'
+        + grabInput(this)
+        + '<i class="far fa-window-close delete"></i> </li>';
+        $(this).parent().find("ul").append(input);
+        $("ul.groceryList").append(input);
+        clear(this);
+        
     };
-}));
-
-// Input Grocery items
-$(document).on('keypress', '#groceryItemInput', (function(event){
+});
+    
+$(document).on("keypress",'input#grocery', function(){
     if(event.which === 13){
-        var groceryItem = $(this).val();
-        var groceryItemString = "<li>" + $(this).val() + "</li>";
-        $(this).val("");
-        groceryList.push(groceryItem);
-        console.log(groceryList);
-        $(".groceries").append(groceryItemString);
-        groceryItemString = "";
-        groceryItem = "";
+
+        var input = '<li>' + $(this).val() + '<i class="far fa-window-close delete"></i> </li>';
+        clear(this);
+        $("ul.groceryList").append(input);
+
     };
-}));
+})
 
+$(document).on("click", "i.delete", function(){
 
+    var del = $(this).parent().text();
+    // console.log($("ul.mealItems > li:contains('" + del + "'), ul.groceryList > li:contains('" + del + "')"))
+    $("ul.groceryList > li:contains('" + del + "')").last().remove();
+    $("ul.mealItems > li:contains('" + del + "')").last().remove();
 
-// ====================================
-// Code to be used later on
-// ====================================
+});
 
-// // Check off specific todos by clicking
-// $("ul").on("click", "li", function(){
-//     $(this).toggleClass("completed");
-// });
+$(document).on("click", "i.meal, i.delete", function(){
 
-// // Click on X to remove li
-// $("ul").on("click", "span", function(){
-//     $(this).parent().fadeOut(500, function(){
-//         $(this).remove();
+    $(this).parent().remove();
+
+});
+
+// function myFunction() {
+//     document.getElementById("myDropdown").classList.toggle("show");
+//   }
+
+// $(document).on("click", "li", function(){
+//     $(this).toggleClass("completed")
 //     });
-//     event.stopPropagation();
-// });
-
-// // Add listener to text form for MEAL
-// $("#mealsInput").keypress(function(event){
-//     if(event.which === 13){
-//         // grabbing new todo text from input
-//         var todoText = $(this).val();
-//         $(this).val("");
-//         // create a new li with input and add to mealul
-//         mealList.meal = {name: todoText, groceryItem: []};
-//         console.log(mealList);
-//         $("ul.meals").append("<li><h3>" + todoText + "</h3><input class='input' type='text' placeholder='Meal Item' id='mealItemInput'><ul class='mealItem'></ul></li>");
-//     }
-// });
-
-// // Add listener to text form for MEALITEM
-// $(document).on('keypress', '#mealItemInput', (function(event){
-//     if(event.which === 13){
-//         // alert("It worked!")
-//         // grabbing new todo text from input
-//         var todoText = $(this).val();
-//         $(this).val("");
-//         // create a new li and add to ul
-//         $("ul.groceries").append("<li><span><i class='fas fa-trash-alt'></i></span>" + todoText + "</li>");
-//         $("ul.mealItem").append("<li><span><i class='fas fa-trash-alt'></i></span>" + todoText + "</li>");
-//     }
-// }));
