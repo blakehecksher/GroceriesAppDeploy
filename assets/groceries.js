@@ -16,6 +16,7 @@ function grabInput(i){
 //     };
 // };
 
+
 // Add Number input
 // <input type="number" id="points" name="points" step="1" value=1>
 
