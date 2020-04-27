@@ -11,7 +11,10 @@ body {
 .container2 {
     margin: 5px;
     /* background-color: #acacac; */
-    max-width: 100%
+    max-width: 100%;
+    border: 1px solid grey;
+    border-radius: 20px;
+    padding: 10px;
 }
 
 #meals {
@@ -34,18 +37,51 @@ input {
     margin: 5px;
     padding: 10px;
     background-color: white;
+    border-radius: 10px;
+    border: 1px solid grey;
+}
+
+#points {
+    width: 25px;
+    margin: 2px;
+    padding: 2px;
+    border: 0px
 }
 
 i {
-    margin-left: 20px;
+    margin-right: 10px;
+    color: rgb(82, 82, 82);
 }
 
 ul {
     list-style-type: none;
+    padding-left: 20px;
 }
 
 .completed {
     text-decoration: line-through;
+}
+
+.mealList {
+    margin: 0px 20px 20px 5px;
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 20px;
+    padding: 10px;
+}
+.groceryList {
+    margin: 0px 20px 20px 5px;
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+ul.mealList > li {
+    border: 1px solid grey;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
 }
 
 /* ==========================

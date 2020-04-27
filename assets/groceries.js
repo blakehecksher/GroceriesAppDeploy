@@ -16,12 +16,15 @@ function grabInput(i){
 //     };
 // };
 
+// Add Number input
+// <input type="number" id="points" name="points" step="1" value=1>
+
 $(document).on("keypress",'input#meal', function(){
     if(event.which === 13){
 
-        var input = '<li>'
+        var input = '<li><i class="far fa-window-close delete meal"></i>'
         + grabInput(this)
-        + '<i class="far fa-window-close delete meal"></i> <br> <input type="text" class="mealItemInput" placeholder="meal item"> <ul class="mealItems"></ul></li>';
+        + ' <br> <input type="text" class="mealItemInput" placeholder="meal item"> <ul class="mealItems"></ul></li>';
         clear(this);
         $("ul.mealList").append(input);
 
@@ -31,9 +34,9 @@ $(document).on("keypress",'input#meal', function(){
 $(document).on('keypress','input.mealItemInput',function(){
     if(event.which === 13){
 
-        var input = '<li>'
+        var input = '<li> <i class="far fa-window-close delete"></i>'
         + grabInput(this)
-        + '<i class="far fa-window-close delete"></i> </li>';
+        + ' </li>';
         $(this).parent().find("ul").append(input);
         $("ul.groceryList").append(input);
         clear(this);
@@ -44,7 +47,7 @@ $(document).on('keypress','input.mealItemInput',function(){
 $(document).on("keypress",'input#grocery', function(){
     if(event.which === 13){
 
-        var input = '<li>' + $(this).val() + '<i class="far fa-window-close delete"></i> </li>';
+        var input = '<li> <i class="far fa-window-close delete"></i>' + $(this).val() + ' </li>';
         clear(this);
         $("ul.groceryList").append(input);
 
