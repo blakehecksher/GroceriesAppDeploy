@@ -7,19 +7,46 @@ function grabInput(i){
     return input
 }
 
+// localStorage stuff
+    // localStorage.setItem("key", "value") <--- Value be turned into a String.
+    // localStorage.getItem("key")
+    // localStorage.removeItem("key")
+
+    // Use JSON.stringify() to turn an object or array into a string.
+    // Use JSON.parse() to return a value back into a object or array.
+
+
+
 // function checkDuplicate(x){
-//     if($("ul.groceryList").text().length > 0){
-//         alert("if statement triggered!");
-//         console.log(x);
-//     } else {
-        
+//     if($("ul.groceryList li:contains('" + x + "')") == true ){
+//         alert("does exist!");
+//         // $("ul.groceryList").append("<li>" + x + "</li>")
+    
+//     }   else {
+
+//         item = $("ul.groceryList li:contains('" + x + "')").text();
+//         var counter = 1
+//         $("ul.groceryList li:contains('" + x + "')").text(item + " x" + counter);
+//         console.log(item)
+
 //     };
 // };
 
-// Add Number input
-// <input type="number" id="points" name="points" step="1" value=1>
+function checkDuplicate(x) {
+    
+    Check if item is in grocery list
+    if(){
 
-$(document).on("keypress",'input#meal', function(){
+    } 
+    Add it to grocery list
+    else {
+
+    }
+};
+
+
+
+$(document).on("keypress", 'input#meal', function(){
     if(event.which === 13){
 
         var input = '<li><i class="far fa-window-close delete meal"></i>'
@@ -31,23 +58,30 @@ $(document).on("keypress",'input#meal', function(){
     };
 });
 
-$(document).on('keypress','input.mealItemInput',function(){
+$(document).on('keypress', 'input.mealItemInput',function(){
     if(event.which === 13){
 
-        var input = '<li> <i class="far fa-window-close delete"></i>'
+        // Add to Meal Item List
+        var input = '<li> <i class="far fa-window-close delete mealItem"></i>'
         + grabInput(this)
         + ' </li>';
         $(this).parent().find("ul").append(input);
-        $("ul.groceryList").append(input);
+
+        // Add to Grocery List
+        var grocInput = '<li> <i class="far fa-window-close delete groceryItem"></i>'
+        + grabInput(this)
+        + ' </li>';
+        $("ul.groceryList").append(grocInput);
         clear(this);
         
     };
 });
     
-$(document).on("keypress",'input#grocery', function(){
+$(document).on("keypress", 'input#grocery', function(){
     if(event.which === 13){
 
-        var input = '<li> <i class="far fa-window-close delete"></i>' + $(this).val() + ' </li>';
+        // Add to Grocery List
+        var input = '<li> <i class="far fa-window-close delete groceryItem"></i>' + $(this).val() + ' </li>';
         clear(this);
         $("ul.groceryList").append(input);
 
@@ -55,19 +89,27 @@ $(document).on("keypress",'input#grocery', function(){
 })
 
 $(document).on("click", "i.delete", function(){
+    if ($(this).hasClass("groceryItem")) {
 
-    var del = $(this).parent().text();
-    // console.log($("ul.mealItems > li:contains('" + del + "'), ul.groceryList > li:contains('" + del + "')"))
-    $("ul.groceryList > li:contains('" + del + "')").last().remove();
-    $("ul.mealItems > li:contains('" + del + "')").last().remove();
+        var del = $(this).parent().text();
+        $(this).parent().remove();
+        $("ul.mealItems > li:contains('" + del + "')").last().remove();
 
+    } else if ($(this).hasClass("mealItem")) {
+
+        var del = $(this).parent().text();
+        $(this).parent().remove();
+        $("ul.groceryList > li:contains('" + del + "')").last().remove()
+
+    } else {
+
+        $(this).parent().remove()
+
+    }
 });
 
-$(document).on("click", "i.meal, i.delete", function(){
-
-    $(this).parent().remove();
-
-});
+// Add Number input
+//     <input type="number" id="amount" name="amount" step="1" value="1" >
 
 // function myFunction() {
 //     document.getElementById("myDropdown").classList.toggle("show");
