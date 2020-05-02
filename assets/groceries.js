@@ -7,45 +7,6 @@ function grabInput(i){
     return input
 }
 
-// localStorage stuff
-    // localStorage.setItem("key", "value") <--- Value be turned into a String.
-    // localStorage.getItem("key")
-    // localStorage.removeItem("key")
-
-    // Use JSON.stringify() to turn an object or array into a string.
-    // Use JSON.parse() to return a value back into a object or array.
-
-
-
-// function checkDuplicate(x){
-//     if($("ul.groceryList li:contains('" + x + "')") == true ){
-//         alert("does exist!");
-//         // $("ul.groceryList").append("<li>" + x + "</li>")
-    
-//     }   else {
-
-//         item = $("ul.groceryList li:contains('" + x + "')").text();
-//         var counter = 1
-//         $("ul.groceryList li:contains('" + x + "')").text(item + " x" + counter);
-//         console.log(item)
-
-//     };
-// };
-
-function checkDuplicate(x) {
-    
-    Check if item is in grocery list
-    if(){
-
-    } 
-    Add it to grocery list
-    else {
-
-    }
-};
-
-
-
 $(document).on("keypress", 'input#meal', function(){
     if(event.which === 13){
 
@@ -61,16 +22,37 @@ $(document).on("keypress", 'input#meal', function(){
 $(document).on('keypress', 'input.mealItemInput',function(){
     if(event.which === 13){
 
+        // var copies = 1;
+
+        var inputValue = grabInput(this)
+        
         // Add to Meal Item List
-        var input = '<li> <i class="far fa-window-close delete mealItem"></i>'
-        + grabInput(this)
-        + ' </li>';
+        var input = '<li><i class="far fa-window-close delete mealItem"></i>'
+        + inputValue
+        + '</li>';
         $(this).parent().find("ul").append(input);
 
+        // // Check duplicate value
+        // function checkDuplicate(x) {
+    
+        //     // Check if item is in grocery list. If it is add a "x" + var amount to end of item.
+        //     if(Boolean($("ul.groceryList li p:contains('" + x + "')").text()) == true){
+
+        //         copies += 1;
+        
+        //     } else {
+                
+        //             }
+        // };
+        // checkDuplicate(grabInput(this));
+
         // Add to Grocery List
-        var grocInput = '<li> <i class="far fa-window-close delete groceryItem"></i>'
-        + grabInput(this)
-        + ' </li>';
+        var grocInput = '<li><i class="far fa-window-close delete groceryItem"></i><p>'
+        + inputValue
+        + '</p>'
+        // + '<p class="counter">x' + copies + '</p>'
+        + '</li>';
+
         $("ul.groceryList").append(grocInput);
         clear(this);
         
@@ -81,7 +63,7 @@ $(document).on("keypress", 'input#grocery', function(){
     if(event.which === 13){
 
         // Add to Grocery List
-        var input = '<li> <i class="far fa-window-close delete groceryItem"></i>' + $(this).val() + ' </li>';
+        var input = '<li> <i class="far fa-window-close delete groceryItem"></i> <p>' + $(this).val() + '</p> </li>';
         clear(this);
         $("ul.groceryList").append(input);
 
@@ -92,29 +74,62 @@ $(document).on("click", "i.delete", function(){
     if ($(this).hasClass("groceryItem")) {
 
         var del = $(this).parent().text();
-        $(this).parent().remove();
+        console.log(del)
         $("ul.mealItems > li:contains('" + del + "')").last().remove();
+        $(this).parent().remove();
 
     } else if ($(this).hasClass("mealItem")) {
 
         var del = $(this).parent().text();
-        $(this).parent().remove();
+        console.log(del)
         $("ul.groceryList > li:contains('" + del + "')").last().remove()
+        $(this).parent().remove();
 
     } else {
 
-        $(this).parent().remove()
+        $(this).parent().remove();
 
     }
 });
 
+$(document).on("click", "button.save", function(){
+
+    localStorage.setItem("mealList1", JSON.stringify($("ul.mealList").html()));
+    localStorage.setItem("groceryList1", JSON.stringify($("ul.groceryList").html()));
+
+});
+
+$(document).on("click", "button.list", function(){
+
+    mealItem = JSON.parse(localStorage.getItem("mealList1"));
+    $("ul.mealList").append(mealItem);
+
+    groceryItem = JSON.parse(localStorage.getItem("groceryList1"));
+    $("ul.groceryList").append(groceryItem);
+
+});
+
+// ===============================================================================
+// ===============================================================================
+// ===============================================================================
+
+// localStorage stuff
+    // localStorage.setItem("key", "value") <--- Value be turned into a String.
+    // localStorage.getItem("key")
+    // localStorage.removeItem("key")
+
+    // Use JSON.stringify() to turn an object or array into a string.
+    // Use JSON.parse() to return a value back into a object or array.
+
 // Add Number input
 //     <input type="number" id="amount" name="amount" step="1" value="1" >
 
-// function myFunction() {
-//     document.getElementById("myDropdown").classList.toggle("show");
-//   }
+// // Drop down menu
+//     function myFunction() {
+//         document.getElementById("myDropdown").classList.toggle("show");
+//     }
 
-// $(document).on("click", "li", function(){
-//     $(this).toggleClass("completed")
-//     });
+// // Line through item
+//     $(document).on("click", "li", function(){
+//         $(this).toggleClass("completed")
+//         });
