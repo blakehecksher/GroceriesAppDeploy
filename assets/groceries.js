@@ -92,20 +92,52 @@ $(document).on("click", "i.delete", function(){
     }
 });
 
+function saveList(x){
+    localStorage.setItem("mealList"+x, JSON.stringify($("ul.mealList").html()));
+    localStorage.setItem("groceryList"+x, JSON.stringify($("ul.groceryList").html()));
+    $("ul.mealList").html("");
+    $("ul.groceryList").html("");
+}
+
 $(document).on("click", "button.save", function(){
 
-    localStorage.setItem("mealList1", JSON.stringify($("ul.mealList").html()));
-    localStorage.setItem("groceryList1", JSON.stringify($("ul.groceryList").html()));
+    if($(this).parent().parent().is("#1")){
+        saveList(1)
+    }
+    else if ($(this).parent().parent().is("#2")){
+        saveList(2)
+    }
+    else if ($(this).parent().parent().is("#3")){
+        saveList(3)
+    }
+    else if ($(this).parent().parent().is("#4")){
+        saveList(4)
+    }
 
 });
 
+function loadList(x){
+    mealItem = JSON.parse(localStorage.getItem("mealList"+x));
+        $("ul.mealList").html(mealItem);
+    
+        groceryItem = JSON.parse(localStorage.getItem("groceryList"+x));
+        $("ul.groceryList").html(groceryItem);
+}
+
 $(document).on("click", "button.list", function(){
 
-    mealItem = JSON.parse(localStorage.getItem("mealList1"));
-    $("ul.mealList").append(mealItem);
-
-    groceryItem = JSON.parse(localStorage.getItem("groceryList1"));
-    $("ul.groceryList").append(groceryItem);
+    if($(this).parent().parent().is("#1")){
+        loadList(1)
+    }
+    else if ($(this).parent().parent().is("#2")){
+        loadList(2)
+    }
+    else if ($(this).parent().parent().is("#3")){
+        loadList(3)
+    }
+    else if ($(this).parent().parent().is("#4")){
+        loadList(4)
+    }
 
 });
 
